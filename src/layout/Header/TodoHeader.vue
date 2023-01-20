@@ -1,6 +1,6 @@
 <template>
   <div class="header">
-    <div class="header__image"></div>
+    <div class="header__image" @click="goToHome"></div>
     <div class="header__date">{{ today }}</div>
   </div>
 </template>
@@ -15,8 +15,11 @@ export default {
   },
   created() {
     this.today = this.calculateDate();
-    },
+  },
   methods: {
+    goToHome() {
+      this.$router.push('/', () => {})
+    },
     calculateDate() {
       const date = new Date();
       const dayList = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];

@@ -1,6 +1,6 @@
 <template>
   <div class="message">
-    <div class="message__text">hi</div>
+    <div class="message__text">hi {{userName}}</div>
     <div class="message__info">
       <span>You've got</span>
       <span class="message__info__count">
@@ -18,6 +18,11 @@ export default {
     return {
       taskCount: 0,
       totalTaskCount: 0,
+    }
+  },
+  computed: {
+    userName() {
+      return this.$store.getters.userName;
     }
   }
 }
