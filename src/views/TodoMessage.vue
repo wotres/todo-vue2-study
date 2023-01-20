@@ -16,13 +16,17 @@ export default {
   name: "TodoMessage",
   data() {
     return {
-      taskCount: 0,
-      totalTaskCount: 0,
     }
   },
   computed: {
     userName() {
       return this.$store.getters.userName;
+    },
+    taskCount() {
+      return this.$store.getters.taskList.length;
+    },
+    totalTaskCount() {
+      return this.$store.getters.taskList.length;
     }
   }
 }

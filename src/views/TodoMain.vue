@@ -8,7 +8,7 @@
 
 <script>
 import TodoMessage from '@/views/TodoMessage';
-import TodoRegister from '@/views/TodoRegister';
+import TodoRegister from '@/views/TodoAddTask';
 import TodoList from '@/views/TodoList';
 export default {
   name: "TodoMain",
