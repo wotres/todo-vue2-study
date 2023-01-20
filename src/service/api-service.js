@@ -35,11 +35,12 @@ const api = {
     console.log('put', address, value, orderType);
   },
   async get(orderType) {
-    this.$store.state.taskList = await axios.get(`/todo/${orderType}`)
+    await axios.get(`/todo/${orderType}`)
       .then(response => {
         response.data = JSON.parse(response.data);
         return response
       });
+    console.log('get', orderType);
   }
 }
 

@@ -13,6 +13,10 @@ const removeTask = async (state, id) => {
   await api.delete('/todo/delete', id, state.orderType);
 }
 
+const removeTaskAll = async (state) => {
+  await api.delete('/todo/deleteAll', '', state.orderType);
+}
+
 const clickChecked = async (state, id, checked) => {
   const value = {
     id: id,
@@ -21,9 +25,9 @@ const clickChecked = async (state, id, checked) => {
   await api.put('/todo/fetch', value, state.orderType);
 }
 
-const sortTaskList = async (state, payload) => {
-  state.orderType = payload;
-  state.taskList = await api.get('', payload);
+const changeOrderType = async (state, orderType) => {
+  state.orderType = orderType;
+  await api.get('', orderType);
 }
 
-export { setUserName, addNewTask, removeTask, clickChecked, sortTaskList };
+export { setUserName, addNewTask, removeTask, removeTaskAll, clickChecked, changeOrderType };
