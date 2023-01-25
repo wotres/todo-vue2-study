@@ -21,6 +21,9 @@ export default {
     TodoOrderBox,
     TodoList
   },
+  created() {
+    this.$store.commit('getTaskList');
+  }
 }
 </script>
 

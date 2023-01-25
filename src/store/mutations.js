@@ -26,4 +26,8 @@ const changeOrderType = async (state, orderType) => {
   state.taskList = await api.get(orderType);
 }
 
-export { setUserName, addNewTask, removeTask, removeTaskAll, clickChecked, changeOrderType };
+const getTaskList = async (state) => {
+  state.taskList = await api.get('desc');
+}
+
+export { setUserName, addNewTask, removeTask, removeTaskAll, clickChecked, changeOrderType, getTaskList };
