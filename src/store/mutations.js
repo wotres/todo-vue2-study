@@ -6,28 +6,24 @@ const setUserName = (state, userName) => {
 }
 
 const addNewTask = async (state, task) => {
-  await api.post('/todo/save', task, state.orderType);
+  state.taskList = await api.post('/todo/save', task, state.userName, state.orderType);
 }
 
 const removeTask = async (state, id) => {
-  await api.delete('/todo/delete', id, state.orderType);
+  state.taskList = await api.delete('/todo/delete', id, state.orderType);
 }
 
 const removeTaskAll = async (state) => {
-  await api.delete('/todo/deleteAll', '', state.orderType);
+  state.taskList = await api.delete('/todo', '', state.orderType);
 }
 
 const clickChecked = async (state, id, checked) => {
-  const value = {
-    id: id,
-    checked: !checked
-  }
-  await api.put('/todo/fetch', value, state.orderType);
+  state.taskList = await api.patch('/todo', id, checked, state.orderType);
 }
 
 const changeOrderType = async (state, orderType) => {
   state.orderType = orderType;
-  await api.get('', orderType);
+  state.taskList = await api.get(orderType);
 }
 
 export { setUserName, addNewTask, removeTask, removeTaskAll, clickChecked, changeOrderType };

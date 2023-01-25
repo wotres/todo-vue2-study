@@ -1,46 +1,63 @@
 import axios from 'axios';
 
+const axiosHttp = axios.create({
+  baseURL: 'http://localhost:9090',
+  withCredentials: false
+});
+
+axiosHttp.interceptors.request.use(
+  (config) => {
+    config.headers['Access-Control-Allow-Origin'] = 'http://localhost:9090';
+    return config;
+  }
+)
 const api = {
-  async post(address, value, orderType) {
-    // await axios.post(address, JSON.stringify(value))
-    //   .then(response => {
-    //     if (response.data == "ok") {
-    //       api.get(orderType);
-    //     } else {
-    //       console.log('save fail');
-    //     }
-    //   });
-    console.log('post', address, value, orderType);
+  async post(address, task, userName, orderType) {
+    const request = {
+      userName,
+      task,
+    }
+    return await axiosHttp.post(address, request)
+      .then(response => {
+        if (response.status === 201 && response.data === "success") {
+          return api.get(orderType);
+        } else {
+          console.log('save fail');
+        }
+      });
   },
   async delete(address, value, orderType) {
-    // await axios.put(address + value)
-    //   .then(response => {
-    //     if (response.data == "ok") {
-    //       api.get(orderType);
-    //     } else {
-    //       console.log('delete fail');
-    //     }
-    //   });
-    console.log('delete', address, value, orderType);
+    return await axiosHttp.delete(address + value)
+      .then(response => {
+        if (response.status === 204 && response.data === "success") {
+          return api.get(orderType);
+        }
+        console.log('delete fail');
+      });
   },
-  async put(address, value, orderType) {
-    // await axios.put(address, value)
-    //   .then(response => {
-    //     if (response.data == "ok") {
-    //       api.get(orderType);
-    //     } else {
-    //       console.log('put fail');
-    //     }
-    //   });
-    console.log('put', address, value, orderType);
+  async patch(address, id, checked, orderType) {
+    const request = {
+      id,
+      checked: !checked,
+    }
+    return await axiosHttp.patch(address, request)
+      .then(response => {
+        if (response.data === "success") {
+          return api.get(orderType);
+        } else {
+          console.log('put fail');
+        }
+      });
   },
   async get(orderType) {
-    await axios.get(`/todo/${orderType}`)
+    return await axiosHttp.get(`/todo/${orderType}`)
       .then(response => {
-        response.data = JSON.parse(response.data);
-        return response
+        if(response.status === 200) {
+          return response.data;
+        } else {
+          console.log('get fail');
+        }
       });
-    console.log('get', orderType);
   }
 }
 

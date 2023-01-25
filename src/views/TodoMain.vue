@@ -20,7 +20,7 @@ export default {
     TodoRegister,
     TodoOrderBox,
     TodoList
-  }
+  },
 }
 </script>
 

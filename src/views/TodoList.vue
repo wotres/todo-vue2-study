@@ -3,8 +3,8 @@
     <div class="list__item"
         v-for="(item, index) in taskList" :key="index">
       <div :class="['list__item__content', {'checked': item.checked}]">
-        <input type="checkbox" :checked="item.checked" @change="clickChecked(item.id, item.checked)"/>
-        <div>{{item}}</div>
+        <input type="checkbox" :checked="item.checked" @change="clickChecked(item)"/>
+        <div>{{item.checked}}</div>
       </div>
       <div class="list__item__remove" @click="removeTask(item.id)">
       </div>
@@ -14,25 +14,14 @@
 <script>
 export default {
   name: "TodoList",
-  data() {
-    return {
-      taskList: [{
-        id: 'sample1',
-        task: 'sample1task'
-      }, {
-        id: 'sample2',
-        task: 'sample2task'
-      }]
-    }
-  },
   computed: {
-    // taskList() {
-    //   return this.$store.getters.taskList;
-    // },
+    taskList() {
+      return this.$store.getters.taskList;
+    },
   },
   methods: {
-    clickChecked(id, checked) {
-      return this.$store.commit("clickChecked", id, checked);
+    clickChecked(item) {
+      return this.$store.commit("clickChecked", item.id, item.checked);
     },
     removeTask(id) {
       return this.$store.commit("removeTask", id);
